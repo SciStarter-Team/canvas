@@ -1,0 +1,146 @@
+.canvas-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: $s3 $base;
+  border-radius: 2rem;
+  background-color: $linework;
+  @include slab();
+  margin-bottom: $b3;
+
+  li {
+    color: $midGray;
+  }
+
+  span {
+    display: inline-block;
+    color: $midGray;
+    background-color: #fff;
+    border: 2px solid $midGray;
+    font-weight: bold;
+    width: 30px;
+    height:30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 26px;
+    margin-right: $s2;
+    position: relative;
+    top:-1px;
+    left: 0;
+  }
+
+  .active {
+    color: $orange;
+    span {
+      color: $orange;
+      border: 2px solid $orange;
+    }
+  }
+}
+
+.ccp-form-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  transition: height 200ms ease-in-out;
+
+    > div {
+      position: absolute;
+      top:0;
+      left: 100%;
+      transition: left 400ms ease-in-out;
+    }
+    > div.active {
+      left: 0;
+    }
+    div.past {
+      left:-200%;
+    }
+
+}
+
+.ccp-form {
+
+}
+.canvas-create-project {
+  width: 100%;
+}
+
+.canvas-style .ccp-form-header {
+  font-size: $b1;
+  color: #fff;
+  display: inline-block;
+  background-color: $purple;
+  padding: $s5 $s2;
+  margin-bottom: $b1;
+}
+.ccp-form-pad {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.ccp-form-unit {
+  width: 100%;
+  margin-bottom: $b4;
+  .flex > .radio {
+    margin-right: $b2;
+  }
+  .label {
+    text-transform: uppercase;
+    color: $dkGray;
+    letter-spacing: 0.01rem;
+    display: block;
+    font-weight: bold;
+    font-size: $base;
+  }
+  small {
+    display: block;
+    margin-top: $s5;
+    color: #606266;
+  }
+  input[type=text], textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid $linework;
+    font-size: $base;
+    padding: $s3;
+
+    &::placeholder{
+      color: #b1b1b1;
+    }
+  }
+  textarea {
+    min-height: 200px;
+  }
+  .el-date-editor {
+    input {
+      padding-left: 30px;
+    }
+  }
+
+}
+
+
+.canvas-style {
+  .el-radio-group {
+    label {
+      margin-right: $b2;
+    }
+  }
+  .el-select {
+    width: 100%;
+  }
+  .el-dropdown {
+    border-radius: $b2;
+    border: 1px solid $linework;
+    padding: $base;
+  }
+  .builder-module .ccp-form-unit > .flex > :first-child {
+    width: calc(100% - 90px);
+  }
+  .builder-module .ccp-form-unit {
+    margin-bottom: $b4;
+  }
+}

@@ -1,0 +1,55 @@
+$purple: #252750;
+$orange: #f67d20;
+$orange_dark: #cc671b;
+$orange_alpha: rgba(256, 125, 32, 0.2);
+$green: #a9bb2e;
+$blue: #47A8D4;
+$blue_dark: #145e80;
+$blue_light: #acd8ec;
+$pageBG: #f8f8f8;
+$dkGray: #414141;
+$linework: #dedede;
+$midGray: #9f9f9f;
+$sci-org-section-outline-gray: #dedede;
+$error: #721c24;
+$errorBG: #f8d7da;
+$errorBorder: #f5c6cb;
+
+//sizing
+$base: 1rem;
+$s1: .833rem;
+$s2: .694rem;
+$s3: .579rem;
+$s4: .482rem;
+$s5: .4rem;
+$b1: 1.2rem;
+$b2: 1.44rem;
+$b3: 1.728rem;
+$b4: 2.074rem;
+$b5: 2.488rem;
+
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+@mixin serifParagraph(){
+  font-family: 'Merriweather','Times New Roman', serif;
+  font-weight: 400;
+}
+@mixin serifHeader(){
+  font-family: 'Merriweather','Times New Roman', serif;
+  font-weight: 700;
+}
+
+@mixin slab(){
+  font-family: 'Arvo','Times New Roman', serif;
+}
+
+@mixin sansSerifParagraph(){
+  font-family: 'Nunito','Helvetica Neue', serif;
+  font-weight: 300;
+}
+@mixin sansSerifHeader(){
+  font-family: 'Merriweather','Helvetica Neue', serif;
+  font-weight: 700;
+}
