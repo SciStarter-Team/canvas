@@ -1,0 +1,48 @@
+
+
+.customFormQuestion {
+  p.label {
+    text-transform: none;
+  }
+}
+
+.customFormQuestion {
+  width: 100%;
+  margin-bottom: $b4;
+  .flex > .radio {
+    margin-right: $b2;
+  }
+  .label {
+    text-transform: uppercase;
+    color: $dkGray;
+    letter-spacing: 0.01rem;
+    display: block;
+    font-weight: bold;
+    font-size: $base;
+  }
+  small {
+    display: block;
+    margin-top: $s5;
+    color: #606266;
+  }
+  input[type=text], textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid $linework;
+    font-size: $base;
+    padding: $s3;
+
+    &::placeholder{
+      color: #b1b1b1;
+    }
+  }
+  textarea {
+    min-height: 200px;
+  }
+  .el-date-editor {
+    input {
+      padding-left: 30px;
+    }
+  }
+
+}

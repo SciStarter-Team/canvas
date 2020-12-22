@@ -146,21 +146,30 @@ a, a:not([href]):not([class]) {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }
+.ta-center {
+  text-align: center;
+}
+.d-block {
+  display: block;
+}
 
 
 .videoWrapper {
 	position: relative;
 	padding-bottom: 0; /* 16:9 */
 	//padding-top: 25px;
-	height: auto;
+	height: 195px;
+  background: #000;
 }
 .videoWrapper__video {
 	position: relative;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: auto;
+	width: auto;
+	max-height: 100%;
 	background: black;
+  display: block;
+  margin: 0 auto;
 }
 
 .frame {
@@ -183,6 +192,9 @@ a, a:not([href]):not([class]) {
 }
 .width-100 {
   width: 100%;
+}
+.width-80 {
+  width: 80%;
 }
 .width-66 {
   width: 66.66%;
@@ -253,6 +265,10 @@ a, a:not([href]):not([class]) {
 .p-l-1h {
   padding-left: 0.5rem;
 }
+.m-center {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .m-0 {
   margin: 0;
@@ -265,6 +281,9 @@ a, a:not([href]):not([class]) {
 }
 .m-0-basehalf {
   margin: 0 $base/2;
+}
+.m-base-basehalf {
+  margin: $base $base/2;
 }
 .m-b1-0 {
   margin: $b1 0;
@@ -516,4 +535,19 @@ span.required {
   color: $orange;
 }
 
+.download-icon {
+  display: inline-block;
+  width:12px;
+  fill: $blue;
+  position: relative;
+  top: -1px;
+}
+
 } // end .canvas-style
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

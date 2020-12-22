@@ -9,10 +9,10 @@
       <div class="flex">
         <div class="flex flex-center-both project-name">
           <div>
-            <h1 class="serif fs-b1 color-w">{{project.project.name}}</h1>
+            <h1 class="serif fs-b1 color-w ta-center">{{project.project.name}}</h1>
             <template v-if="project.project.type == 'CustomProject'">
-              <p class="color-w m-0">Shared by {{project.project.teacher.name}}</p>
-              <p class="color-w m-0">{{project.project.teacher.school}}</p>
+              <p class="color-w m-0 ta-center">Shared by {{project.project.teacher.name}}</p>
+              <p class="color-w m-0 ta-center">{{project.project.teacher.school}}</p>
             </template>
           </div>
         </div>
@@ -47,7 +47,9 @@
         <div class="flex-col">
           <div class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Description</h3>
-            <div v-html="project.description || project.project.description"></div>
+
+                <vue-markdown :source="project.description || project.project.description"></vue-markdown>
+
           </div>
 
           <div class="frame p-base">
@@ -126,15 +128,16 @@
               <li v-for="(step, index) in project.instruction_steps_active" :key="'step' + index">{{step}}</li>
             </template>
             <template v-if="project.project.type == 'CustomProject'">
-              <li v-for="(step, index) in project.project.steps" :key="'step' + index">{{step}}</li>
+              <vue-markdown :source="project.project.steps"></vue-markdown>
+              <!-- <li v-for="(step, index) in project.project.steps" :key="'step' + index">{{step}}</li> -->
             </template>
         </ol>
       </div>
 
-      <template v-if="project.type == 'CustomProject'">
-        <div class="frame p-base m-0-basehalf">
-          <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Questions</h3>
-
+      <template v-if="project.project.type == 'CustomProject'">
+        <div class="frame p-base m-0-basehalf m-base-basehalf">
+          <h3 class="color-p fs-base serif w-700 m-0-0-base">Project Questions</h3>
+          <CustomForm :fields="questions"  />
         </div>
       </template>
 
@@ -149,9 +152,20 @@
 </template>
 
 <script>
+import VueMarkdown from 'vue-markdown'
+import CustomForm from '../components/CanvasCustomForm'
 export default {
   name: 'ViewProject',
   props: ['project'],
+  data: function(){
+    return {
+      questions: null
+    }
+  },
+  components: {
+      VueMarkdown,
+      CustomForm
+  },
   methods: {
     backToList: function() {
       this.$emit('clearProject')
@@ -182,7 +196,9 @@ export default {
   },
   mounted(){
     this.scrollToTop()
-
+    if (this.project.project.type == 'CustomProject') {
+      this.questions = JSON.parse(this.project.project.json)
+    }
   }
 }
 </script>

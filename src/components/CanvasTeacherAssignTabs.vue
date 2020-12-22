@@ -26,16 +26,22 @@
       </ul>
 
       <!-- TAB PANELS -->
+
       <div id="panel-1" class="canvas-panel" v-if="tabIndex === 0" role="tabpanel" tabindex="0" aria-labelledby="tab-1" >
         <keep-alive>
         <SelectProject  :user="user" :organization="organization" />
       </keep-alive>
       </div>
+
+
+
       <div id="panel-2" class="canvas-panel" v-if="tabIndex === 1" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
         <keep-alive>
         <CreateProject :user="user" :organization="organization" />
       </keep-alive>
       </div>
+
+
       <div id="panel-3" class="canvas-panel"  v-if="tabIndex === 2" role="tabpanel" tabindex="0" aria-labelledby="tab-3">
         <keep-alive>
         <Documents />

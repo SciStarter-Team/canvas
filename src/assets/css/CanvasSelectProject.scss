@@ -13,11 +13,11 @@
 
 .canvas-style{
   .project-card-image {
-      max-height: 250px;
-      background-color: $dkGray;
+      height: 195px;
+      background-color: #000;
       img {
         object-fit: contain;
-        max-height: 250px;
+        height: 195px;
         margin: 0 auto;
         display: block;
       }

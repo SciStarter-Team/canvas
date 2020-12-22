@@ -17,7 +17,7 @@
       <div class="flex flex-jc-sb flex-ai-b m-0-0-1">
           <a @click="viewProject(item)" class="w-400">View project</a>
         <div class="fs-s1">
-          Download&nbsp;Video:<a v-for="url in item.intro_video_urls_filtered" :key="url + 'd'" :href="url" target="_blank" download class="p-l-1h">({{ extension(url) }})</a>
+          <a v-for="url in item.intro_video_urls_filtered" :key="url + 'd'" :href="url" target="_blank" download class="p-l-1h">{{ extension(url) }} <svg class="download-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g id="Solid"><path d="m239.029 384.97a24 24 0 0 0 33.942 0l90.509-90.509a24 24 0 0 0 0-33.941 24 24 0 0 0 -33.941 0l-49.539 49.539v-262.059a24 24 0 0 0 -48 0v262.059l-49.539-49.539a24 24 0 0 0 -33.941 0 24 24 0 0 0 0 33.941z"/><path d="m464 232a24 24 0 0 0 -24 24v184h-368v-184a24 24 0 0 0 -48 0v192a40 40 0 0 0 40 40h384a40 40 0 0 0 40-40v-192a24 24 0 0 0 -24-24z"/></g></svg></a>
         </div>
       </div>
       <!-- do you still need banner here? what is it? -->
@@ -31,7 +31,7 @@
     <div class="flex-col flex-jc-sb h-100">
       <div>
         <div class="cc-wrap">
-          <span v-if="user.id == item.project.teacher.id" class="custom-category cc-user">your project</span>
+          <span v-if="user.id == item.project.teacher.id" class="custom-category cc-user">created by you</span>
           <span v-else class="custom-category">educator created</span>
         </div>
         <div class="videoWrapper m-0-0-1h">
