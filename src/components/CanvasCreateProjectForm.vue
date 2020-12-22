@@ -107,6 +107,12 @@
           </div>
 
           <div class="ccp-form-unit">
+            <label class="label">Notes for Educators</label>
+            <textarea v-model="project.notes" placeholder="Add notes for fellow educators for when you share this project."></textarea>
+            <small>Add notes for fellow educators for when you share this project.</small>
+          </div>
+
+          <div class="ccp-form-unit">
             <label class="label">Upload Documents</label>
             <el-upload action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList">
               <el-button size="small" type="primary">Click to upload</el-button>
@@ -297,7 +303,8 @@ export default {
         topics:[],
         activities:[],
         classroom_materials:null,
-        fields:[]
+        fields:[],
+        notes: null
       },
       topics: store.broward.custom[0].project._metadata.topics,
       activities: store.broward.custom[0].project._metadata.activities,

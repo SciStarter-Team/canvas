@@ -23,7 +23,11 @@ export default {
   },
   data: function(){
     return {
-      organization: 'broward', // replace with real data
+      organization: {
+        name: "Broward",
+        portal_name: "Broward's PBL Portal @ SciStarter",
+        welcome_image: "img/PBL_image_aC85UGb.jpg"
+      }, // replace with real data
       user: {
         "id":69,
         "name":"kevinripka",

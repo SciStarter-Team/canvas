@@ -45,13 +45,10 @@
       <div class="flex flex-jc-sb flex-reverse project-details">
 
         <div class="flex-col">
-          <div class="frame p-base">
-            <h3 class="color-p fs-base serif w-700 m-0-0-s4">Description</h3>
 
-                <vue-markdown :source="project.description || project.project.description"></vue-markdown>
 
-          </div>
 
+          <!-- DETAILS TABLE -->
           <div class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Details</h3>
             <table class="canvas-table">
@@ -76,6 +73,14 @@
             </tr>
           </table>
           </div>
+
+          <!-- DESCRIPTION -->
+          <div class="frame p-base">
+            <h3 class="color-p fs-base serif w-700 m-0-0-s4">Description</h3>
+                <vue-markdown :source="project.description || project.project.description"></vue-markdown>
+          </div>
+
+          <!-- RESOURCES FOR TEACHERS -->
           <div v-if="project.resource_1 && project.resource_1.url !== ''" class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Additional Resources for Teachers</h3>
             <ul class="standard">
@@ -85,6 +90,8 @@
               <li v-if="project.resource_4.url"><a :href="project.resource_4.url" target="_blank">{{project.resource_4.name || project.resource_4.url}}</a></li>
             </ul>
           </div>
+
+          <!-- RESOURCES FOR STUDENTS -->
           <div v-if="project.student_resource_1 && project.student_resource_1.url !== ''" class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Additional Resources for Students</h3>
             <ul class="standard">
@@ -94,15 +101,18 @@
               <li v-if="!!project.student_resource_4.url"><a :href="project.student_resource_4.url" target="_blank">{{project.student_resource_4.name || project.student_resource_4.url}}</a></li>
             </ul>
           </div>
+
         </div><!-- end .flex-col -->
 
         <div class="flex-col">
 
+          <!-- TIME REQUIRED -->
           <div class="frame p-base div1">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Time Required</h3>
             <p class="serif fs-b1 color-b">{{project.time_required || project.project.time }}</p>
           </div>
 
+          <!-- MATERIALS NEEDED -->
           <div class="frame p-base div2">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Materials Needed</h3>
 
@@ -114,12 +124,18 @@
               <template v-if="project.project.type == 'CustomProject'">
                 <p>{{project.project.materials}}</p>
               </template>
-
           </div>
+
+          <!-- IF AFFILIATE WHERE STUDENT HAS TO ENTER DATA -->
+          <div v-if="!project.project.form && project.project.type == 'Project'" class="frame p-base message">
+            <h3 class="color-p fs-base serif w-700 m-0-0-s4">Note for Educators</h3>
+              <p>This project is not hosted on SciStarter.org. Students will need to create a project account during the assignment to log data and to receive credit for their participation. Or, for students 13 and under, you can create a project account and log data as a class to complete the assignment. Select "Students will submit data to teacher, Teacher will submit data to the project (suggested for younger students)" when assigning project to log data on behalf of your class.</p>
+          </div>
+
         </div><!-- end .flex-col -->
 
 
-      </div><!-- end .grid -->
+      </div><!-- end .flex -->
 
       <div class="frame p-base m-0-basehalf">
           <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Instructions</h3>
@@ -134,8 +150,15 @@
         </ol>
       </div>
 
+      <template v-if="project.project.type == 'CustomProject' && project.project.notes">
+          <div class="frame p-base m-base-basehalf">
+              <h3 class="color-p fs-base serif w-700 m-0-0-base">Notes from the Project Creator</h3>
+              <vue-markdown :source="project.project.notes"></vue-markdown>
+          </div>
+      </template>
+
       <template v-if="project.project.type == 'CustomProject'">
-        <div class="frame p-base m-0-basehalf m-base-basehalf">
+        <div class="frame p-base m-base-basehalf">
           <h3 class="color-p fs-base serif w-700 m-0-0-base">Project Questions</h3>
           <CustomForm :fields="questions"  />
         </div>

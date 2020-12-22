@@ -69,6 +69,7 @@
     max-height: 360px;
     .videoWrapper,video {
       height: 100%;
+      width: 100%;
     }
     img {
       height: 100%;
@@ -110,4 +111,13 @@
     padding: $base;
   }
 
+
+
+}
+
+.canvas-assign-project {
+  input[type="number"] {
+    width: 60px;
+    margin-left:$b1;
+  }
 }

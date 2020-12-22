@@ -265,6 +265,12 @@ a, a:not([href]):not([class]) {
 .p-l-1h {
   padding-left: 0.5rem;
 }
+.p-r-base {
+  padding-right: $base;
+}
+.p-l-base {
+  padding-left: $base;
+}
 .m-center {
   margin-left: auto;
   margin-right: auto;
@@ -471,6 +477,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.message {
+  background-color:#fff3cd;
 }
 
 ol.instructions {

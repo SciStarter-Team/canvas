@@ -19,7 +19,7 @@
           <span class="color-o w-400">* required</span>
         </div>
         <div v-if="showError" class="c-error">You must select who will enter data into the project</div>
-        <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) *</h3>
+        <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) <span class="required">*</span></h3>
         <div ref="radios">
           <div class="radio flex m-0-0-s4">
               <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
@@ -30,6 +30,13 @@
             <label class="fs-base" for="student">Students will submit data to both teacher and the project (suggested for older students)</label>
           </div>
         </div>
+
+        <div v-if="whoSubmits=='student'" class="m-b4-0">
+            <h3 class="color-g w-700 fs-base m-0-0-s4">Number of Contributions Per Student <span class="required">*</span></h3>
+            <label>How many times must the student do the project to complete assignment?</label>
+            <input type="number" v-model="contributions" />
+        </div>
+
         <div class="flex flex-jc-sb flex-ai-c m-lg-0-0">
           <a @click="cancel" class="cbtn-txt-secondary">cancel selection</a>
           <a @click="assign(item)" class="cbtn-primary">Assign Project <span>&raquo;</span></a>
@@ -47,6 +54,7 @@ export default {
  data: function(){
    return {
      whoSubmits: null,
+     contributions: 1,
      confirmed: false,
      showError: false
    }
