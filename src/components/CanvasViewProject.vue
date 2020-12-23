@@ -182,9 +182,7 @@
               </el-radio-group>
 
               <el-select v-else-if="item.type==='select-one' && item.options" placeholder="Select One">
-                  <template v-if="item.options">
                   <el-option v-for="o in item.options" :key="o" :value="o" :label="o"></el-option>
-                  </template>
               </el-select>
 
 

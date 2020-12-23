@@ -20,7 +20,8 @@
     font-weight: bold;
     font-size: $base;
     &.heading {
-      font-size: $b1;
+      font-size: $base;
+      line-height: 140%;
       @include serifHeader();
       color: $blue;
       margin-top:$b4*2;
