@@ -13,12 +13,18 @@
     margin-right: $b2;
   }
   .label {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     color: $dkGray;
     letter-spacing: 0.01rem;
     display: block;
     font-weight: bold;
     font-size: $base;
+    &.heading {
+      font-size: $b1;
+      @include serifHeader();
+      color: $blue;
+      margin-top:$b4*2;
+    }
   }
   small {
     display: block;

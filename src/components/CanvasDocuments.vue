@@ -2,7 +2,6 @@
   <div id="canvas-documents" class="canvas-style p-base flex">
 
     <div class="width-66 p-r-base getting-started">
-      <h2 class="color-b fs-b2 serif m-0-0-base">Getting Started</h2>
         <!-- <img v-if="organization.welcome_image" :src="organization.welcome_image" /> -->
       <div class="welcome">
         <h3 class="serif color-p fs-b1 w-700 m-0-0-s4">Welcome!</h3>

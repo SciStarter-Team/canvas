@@ -164,6 +164,37 @@
         </div>
       </template>
 
+      <template v-if="project.project.type == 'Project'">
+        <div class="frame p-base m-base-basehalf">
+          <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Worksheet</h3>
+          <p class=" m-0-0-lg">This is the form students will fill out and submit to you</p>
+
+          <div v-for="(item,i) in worksheet" class="customFormQuestion" :key="'q'+i">
+              <h4 class="label" :class="{'heading':item.type=='heading'}">{{item.prompt}}</h4>
+              <small v-if="item.extra">{{item.extra}}</small>
+
+              <input v-if="item.type=='short-text'" type="text" disabled />
+              <textarea v-else-if="item.type=='long-text'" disabled></textarea>
+
+              <el-radio-group v-else-if="item.type==='true-false'">
+                  <el-radio :value="true" disabled>Yes</el-radio>
+                  <el-radio :value="false" disabled>No</el-radio>
+              </el-radio-group>
+
+              <el-select v-else-if="item.type==='select-one' && item.options" placeholder="Select One">
+                  <template v-if="item.options">
+                  <el-option v-for="o in item.options" :key="o" :value="o" :label="o"></el-option>
+                  </template>
+              </el-select>
+
+
+
+
+          </div>
+
+        </div>
+      </template>
+
     </div><!-- end #project-details -->
 
   </template>
@@ -175,19 +206,23 @@
 </template>
 
 <script>
+//*******REMOVE FOR PROD *********
+import store from '../store.js'
+//********************************
 import VueMarkdown from 'vue-markdown'
 import CustomForm from '../components/CanvasCustomForm'
 export default {
   name: 'ViewProject',
-  props: ['project'],
-  data: function(){
-    return {
-      questions: null
-    }
-  },
   components: {
       VueMarkdown,
       CustomForm
+  },
+  props: ['project'],
+  data: function(){
+    return {
+      questions: null,
+      worksheet: store.worksheet
+    }
   },
   methods: {
     backToList: function() {
@@ -198,6 +233,14 @@ export default {
     },
     scrollToTop(){
       window.scrollTo(0,0)
+    },
+    createWorksheetOptions(){
+      this.worksheet.map(function(d){
+        if (d.type==='select-one' && d.extra !== ''){
+          d.options = d.extra.split(',')
+        }
+        return d;
+      })
     }
   },
   computed: {
@@ -221,6 +264,9 @@ export default {
     this.scrollToTop()
     if (this.project.project.type == 'CustomProject') {
       this.questions = JSON.parse(this.project.project.json)
+    }
+    if (this.project.project.type == 'Project') {
+      this.createWorksheetOptions()
     }
   }
 }
