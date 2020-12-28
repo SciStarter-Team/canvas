@@ -482,6 +482,9 @@ input:checked + .slider:before {
 .message {
   background-color:#fff3cd;
 }
+.message-border {
+  border:1px solid darken(#fff3cd,20%);
+}
 
 ol.instructions {
   counter-reset: instructions-counter;

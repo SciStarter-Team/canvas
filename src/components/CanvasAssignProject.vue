@@ -18,12 +18,15 @@
           <h2 class="color-b fs-b2 serif">Assignment Settings</h2>
           <span class="color-o w-400">* required</span>
         </div>
+
+        <div v-if="!item.project.form" class="message message-border p-base m-0-0-base"><b class="w-700">Warning:</b> This project requires making an account on a non-SciStarter website to participate.</div>
         <div v-if="showError" class="c-error">You must select who will enter data into the project</div>
         <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) <span class="required">*</span></h3>
         <div ref="radios">
           <div class="radio flex m-0-0-s4">
               <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
-              <label class="fs-base" for="teacher">Students will submit data to teacher, Teacher will submit data to the project (suggested for younger students)</label>
+              <label class="fs-base" for="teacher">Students will submit data to teacher, Teacher will submit data to the project (suggested for younger students).</label>
+
           </div>
           <div class="radio flex m-0-0-s4">
             <input type="radio" v-model="whoSubmits" value="student" id="student" />
