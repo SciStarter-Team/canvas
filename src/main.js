@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import App from './CanvasApp.vue'
-import Element from 'element-ui'
+import Vue from 'vue';
+import App from './CanvasApp.vue';
+import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Element);
 
@@ -16,5 +16,5 @@ Vue.filter('formatDate', function(value) {
 });
 
 new Vue({
-  render: h => h(App),
+    render: h => h(App),
 }).$mount('#app')

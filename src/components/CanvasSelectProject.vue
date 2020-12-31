@@ -1,25 +1,22 @@
 <template>
-  <div class="canvas-select-project">
+<div class="canvas-select-project">
+  <template v-if="projectToAssign">
+    <keep-alive>
+      <AssignProject :item="projectToAssign" :organization="organization" :user="user" @cancel="backToList" />
+    </keep-alive>
+  </template>
 
-    <template v-if="projectToAssign">
-        <keep-alive>
-        <AssignProject :item="projectToAssign" :organization="organization" :user="user" @cancel="backToList" />
-        </keep-alive>
-    </template>
+  <template v-else-if="projectView">
+    <ViewProject @assign="assignProject" @clearProject="backToList" :organization="organization" :user="user" :project="projectView" />
+  </template>
 
-    <template v-else-if="projectView">
-        <ViewProject @assign="assignProject" @clearProject="backToList" :organization="organization" :user="user" :project="projectView" />
-    </template>
+  <template v-else>
+    <keep-alive>
+      <ProjectList :curated="curated" :custom="custom" @clicked="setProjectView" @assign="assignProject" :organization="organization" :user="user" />
+    </keep-alive>
 
-    <template v-else>
-        <keep-alive>
-        <ProjectList :curated="curated" :custom="custom" @clicked="setProjectView" @assign="assignProject" :organization="organization" :user="user" />
-      </keep-alive>
-
-    </template>
-
-
-  </div>
+  </template>
+</div>
 </template>
 
 <script>
@@ -32,59 +29,52 @@ import AssignProject from '../components/CanvasAssignProject'
 export default {
     name: 'SelectProject',
     components: {
-      ProjectList,
-      ViewProject,
-      AssignProject
+        ProjectList,
+        ViewProject,
+        AssignProject
     },
     props: ['user','organization'],
     data: function(){
-      return {
-        curated: store.broward.items, // replace with real data
-        custom: store.broward.custom,
-        projectView: null,
-        projectToAssign: null
-      }
+        return {
+            custom: store.broward.custom,
+            projectView: null,
+            projectToAssign: null
+        }
+    },
+    computed: {
+        curated() {
+            return JSON.parse(document.getElementById('data-projects').textContent);
+        }
     },
     methods: {
-      extension: function(url) {
+        extension: function(url) {
             var parts = url.split('.');
             return parts[parts.length - 1];
         },
-      setProjectView: function(e){
-        this.projectView = e
-      },
-      viewProjectAction: function(e){
-          this.setProject(e);
-      },
-      backToList: function(){
-        this.projectView = null
-        this.projectToAssign = null
-      },
-      setProject: function(){
-        // do all the logic to assign the project
-        this.projectAssigned = true
-      },
-      assignProject:function(e){
-        this.projectToAssign = e
-        this.projectAssigned = true
-      },
-      scrollToTop(){
-        window.scrollTo(0,0)
-      }
-    },
-    created() {
-      let ctx = this
-      ctx.curated.map(function(d){
-
-        d.intro_video_urls_filtered = [];
-        d.intro_video_urls.forEach(function(v){
-          if(v){d.intro_video_urls_filtered.push(v)}
-        })
-        return d;
-      })
+        setProjectView: function(e){
+            this.projectView = e
+        },
+        viewProjectAction: function(e){
+            this.setProject(e);
+        },
+        backToList: function(){
+            this.projectView = null
+            this.projectToAssign = null
+        },
+        setProject: function(){
+            // do all the logic to assign the project
+            this.projectAssigned = true
+        },
+        assignProject:function(e){
+            this.projectToAssign = e
+            this.projectAssigned = true
+        },
+        scrollToTop(){
+            window.scrollTo(0,0)
+        }
     },
     mounted() {
-      // this.scrollToTop()
+        // this.scrollToTop()
     }
 }
 </script>
