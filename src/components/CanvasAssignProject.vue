@@ -21,23 +21,24 @@
 
     <div v-if="!item.project.form" class="message message-border p-base m-0-0-base"><b class="w-700">Warning:</b> This project requires making an account on a non-SciStarter website to participate.</div>
     <div v-if="showError" class="c-error">You must select who will enter data into the project</div>
-    <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) <span class="required">*</span></h3>
-    <div ref="radios">
-      <div class="radio flex m-0-0-s4">
-        <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
-        <label class="fs-base" for="teacher">Students will submit data to teacher, Teacher will submit data to the project (suggested for younger students).</label>
-
+    <template v-if="!item.direct_input_only">
+      <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) <span class="required">*</span></h3>
+      <div ref="radios">
+        <div class="radio flex m-0-0-s4">
+          <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
+          <label class="fs-base" for="teacher">Students will submit data to teacher; Teacher will submit data to the project (suggested for younger students).</label>
+        </div>
+        <div class="radio flex m-0-0-s4">
+          <input type="radio" v-model="whoSubmits" value="student" id="student" />
+          <label class="fs-base" for="student">Students will submit data directly to the project (suggested for older students)</label>
+        </div>
       </div>
-      <div class="radio flex m-0-0-s4">
-        <input type="radio" v-model="whoSubmits" value="student" id="student" />
-        <label class="fs-base" for="student">Students will submit data to both teacher and the project (suggested for older students)</label>
-      </div>
-    </div>
+    </template>
 
     <div v-if="whoSubmits=='student'" class="m-b4-0">
       <h3 class="color-g w-700 fs-base m-0-0-s4">Number of Contributions Per Student <span class="required">*</span></h3>
       <label>How many times must the student do the project to complete assignment?</label>
-      <input type="number" v-model="contributions" />
+      <input type="number" min="1" v-model="contributions" />
     </div>
 
     <div class="flex flex-jc-sb flex-ai-c m-lg-0-0">
@@ -48,7 +49,7 @@
     <form ref="return_form" method="post" :action="return_url">
       <input ref="return_jwt" type="hidden" name="JWT" value="">
     </form>
-
+  </template>
 </div>
 </template>
 
@@ -58,7 +59,7 @@ export default {
     props: ['item'],
     data: function(){
         return {
-            whoSubmits: null,
+            whoSubmits: this.item.direct_input_only ? 'student' : null,
             contributions: 1,
             confirmed: false,
             showError: false
@@ -73,8 +74,8 @@ export default {
             return JSON.parse(document.getElementById('data-return-url').textContent);
         },
 
-        csrftoken() {
-            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        xcsrftoken() {
+            return JSON.parse(document.getElementById('data-xcsrf-token').textContent);
         }
     },
     methods: {
@@ -93,12 +94,17 @@ export default {
 
         assignProject() {
             this.$refs.assign_spinner.classList.add("spinner-border", "spinner-border-sm");
+
+            let body = new FormData();
+            body.append('direct', ((this.whoSubmits == 'student' || this.item.direct_input_only) ? 'true' : 'false'));
+            body.append('required', '' + this.contributions);
+
             fetch(this.assign_url, {
                 method: "POST",
                 credentials: "include",
-                body: ((this.whoSubmits == 'student') ? 'direct=true' : 'direct=false')
+                headers: {"X-XCSRFToken": this.xcsrftoken},
+                body:  body
             }).then(response => response.text()).then(jwt => {
-                console.log(jwt);
                 this.$refs.return_jwt.value = jwt;
                 this.$refs.return_form.submit();
             });

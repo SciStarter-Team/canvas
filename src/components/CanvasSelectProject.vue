@@ -20,9 +20,6 @@
 </template>
 
 <script>
-// ******** REMOVE FOR PROD
-import store from '../store.js'
-//******************************
 import ProjectList from '../components/CanvasProjectList'
 import ViewProject from '../components/CanvasViewProject'
 import AssignProject from '../components/CanvasAssignProject'
@@ -36,7 +33,7 @@ export default {
     props: ['user','organization'],
     data: function(){
         return {
-            custom: store.broward.custom,
+            custom: [], // fill with custom projects
             projectView: null,
             projectToAssign: null
         }

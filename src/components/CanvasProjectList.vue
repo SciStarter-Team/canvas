@@ -54,7 +54,9 @@
     </div>
   </div>
 
-
+  <!-- Just to make the last row flow properly -->
+  <div class="canvas-flex-project__card frame-round p-base m-0-0-2" style="width:380px">
+  </div>
 </div>
 </template>
 

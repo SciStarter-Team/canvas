@@ -24,6 +24,7 @@
                 <template v-for="vid in intro_videos">
                   <source :key="vid.url" :type="vid.type" :src="vid.url">
                 </template>
+              </video>
             </div>
           </div>
         </template>
@@ -282,5 +283,11 @@ export default {
     margin: 0px;
     border: 0px;
     padding: 0px;
+
+    ul {
+        list-style: disc;
+        margin-left: 0;
+        padding-left: 1.2rem;
+    }
 }
 </style>

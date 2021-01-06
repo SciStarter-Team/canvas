@@ -38,20 +38,15 @@
 
       <div id="panel-1" class="canvas-panel" v-if="tabIndex === 1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" >
         <keep-alive>
-        <SelectProject  :user="user" :organization="organization" />
+        <SelectProject :user="user" :organization="organization" />
       </keep-alive>
       </div>
-
-
 
       <div id="panel-2" class="canvas-panel" v-if="tabIndex === 2" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
         <keep-alive>
         <CreateProject :user="user" :organization="organization" />
       </keep-alive>
       </div>
-
-
-
 
   </div>
 </template>
@@ -75,14 +70,16 @@ export default {
   },
   methods: {
     selectTab(i){
-      if (i !== this.tabIndex){
-        let tabs = this.$refs.tabs.querySelectorAll('a')
-        tabs.forEach(function(d){
-          d.classList.remove('selected')
-        })
-        tabs.item(i).classList.add('selected')
-        this.tabIndex = i
-        window.scrollTo(0,0)
+      if (i !== this.tabIndex) {
+          let tabs = this.$refs.tabs.querySelectorAll('a');
+
+          tabs.forEach(function(d){
+              d.classList.remove('selected');
+          });
+
+          tabs.item(i).classList.add('selected');
+          this.tabIndex = i;
+          window.scrollTo(0, 0);
       }
     }
   }
