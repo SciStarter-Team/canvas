@@ -43,7 +43,7 @@
 
     <div class="flex flex-jc-sb flex-ai-c m-lg-0-0">
       <a @click="cancel" class="cbtn-txt-secondary">cancel selection</a>
-      <a @click="assign(item)" class="cbtn-primary"><i ref="assign_spinner"></i>Assign Project <span>&raquo;</span></a>
+      <a @click="assign(item)" class="cbtn-primary"><i ref="assign_spinner"></i>To assign this project, click <em>Select</em> on the next screen <span>&raquo;</span></a>
     </div>
 
     <form ref="return_form" method="post" :action="return_url">

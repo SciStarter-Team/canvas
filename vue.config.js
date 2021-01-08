@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: 'https://static.scistarter.org/canvas-teacher/'
+    publicPath: 'https://static.scistarter.org/canvas-assign/'
 }
