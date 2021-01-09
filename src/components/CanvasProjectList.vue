@@ -41,7 +41,7 @@
           </div>
 
         </div>
-        <h3 class="serif color-p fs-b1 w-700">{{ !!item.name_override ? item.name_override : item.project.name }}</h3>
+        <h3 class="serif color-p fs-b1 w-700">{{ item.project.name }}</h3>
         <p v-if="user.id == item.project.teacher.id">Created on {{item.project.start_date | formatDate}}</p>
         <p v-else>Created by {{item.project.teacher.name}}</p>
         <div class="flex flex-jc-sb flex-ai-b m-0-0-1">
@@ -55,7 +55,7 @@
   </div>
 
   <!-- Just to make the last row flow properly -->
-  <div class="canvas-flex-project__card frame-round p-base m-0-0-2" style="width:380px">
+  <div class="canvas-flex-project__card p-base m-0-0-2" style="width:380px">
   </div>
 </div>
 </template>
@@ -101,11 +101,11 @@ export default {
         },
 
         viewProject(item) {
-            this.$emit('clicked', item)
+            this.$emit('clicked', item);
         },
 
         assignProject(item) {
-            this.$emit('assign',item)
+            this.$emit('assign', item);
         }
     }
 }

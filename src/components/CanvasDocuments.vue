@@ -12,11 +12,11 @@
       <ol class="instructions">
 
       <li><h4 class="fs-base w-700 tt-u color-o">Select a Project</h4>
-      <p>Use the Browse &amp; Select tab to find a project to assign for your students.</p></li>
+      <p>Use the Browse &amp; Select tab to find a project to assign to your students.</p></li>
       <li><h4 class="fs-base w-700 tt-u color-o">Participate in the Project</h4>
-      <p>Help your students participate in the project.</p></li>
+      <p>Help your students participate in an ongoing research project by collecting or analyzing data.</p></li>
       <li><h4 class="fs-base w-700 tt-u color-o">Create a Project</h4>
-      <p>Optionally, after your class has completed a citizen science project together, create your own project and share it with others! You don't have to do this on the same assignment, but can make a new assignment.</p></li>
+      <p>Optionally, after your class has completed a citizen science project together, create your own project and share it with others! You don't have to do this as part of the same assignment, but can make a new assignment.</p></li>
 
 
 

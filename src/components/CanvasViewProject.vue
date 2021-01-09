@@ -81,7 +81,7 @@
           </div>
 
           <!-- RESOURCES FOR TEACHERS -->
-          <div v-if="project.teacher_resources.length > 0" class="frame p-base">
+          <div v-if="project.teacher_resources && project.teacher_resources.length > 0" class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Additional Resources for Teachers</h3>
             <ul class="standard">
               <li v-for="res in project.teacher_resources" :key="res.url"><a :href="res.url" target="_blank">{{res.label || res.url}}</a></li>
@@ -89,7 +89,7 @@
           </div>
 
           <!-- RESOURCES FOR STUDENTS -->
-          <div v-if="project.student_resources.length > 0" class="frame p-base">
+          <div v-if="project.student_resources && project.student_resources.length > 0" class="frame p-base">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Additional Resources for Students</h3>
             <ul class="standard">
               <li v-for="res in project.student_resources" :key="res.url"><a :href="res.url" target="_blank">{{res.label || res.url}}</a></li>
@@ -269,7 +269,7 @@ export default {
     mounted(){
         this.scrollToTop()
         if (this.project.project.type == 'CustomProject') {
-            this.questions = JSON.parse(this.project.project.json)
+            this.questions = this.project.project.json;
         }
         if (this.project.project.type == 'Project') {
             this.createWorksheetOptions()

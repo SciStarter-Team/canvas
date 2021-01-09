@@ -38,13 +38,13 @@
 
       <div id="panel-1" class="canvas-panel" v-if="tabIndex === 1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" >
         <keep-alive>
-        <SelectProject :user="user" :organization="organization" />
+        <SelectProject :user="user" :organization="organization" :newly-created="created" />
       </keep-alive>
       </div>
 
       <div id="panel-2" class="canvas-panel" v-if="tabIndex === 2" role="tabpanel" tabindex="0" aria-labelledby="tab-2">
         <keep-alive>
-        <CreateProject :user="user" :organization="organization" />
+        <CreateProject :user="user" :organization="organization" @project-added="created.push($event)"/>
       </keep-alive>
       </div>
 
@@ -64,8 +64,9 @@ export default {
   },
   props: ['user','organization'],
   data: function(){
-    return {
-      tabIndex: 0
+      return {
+          created: [],
+          tabIndex: 0
     }
   },
   methods: {

@@ -17,24 +17,23 @@
 <script>
 import TeacherAssignTabs from './components/CanvasTeacherAssignTabs.vue'
 export default {
-  name: 'App',
-  components: {
-    TeacherAssignTabs
-  },
-  data: function(){
-    return {
-      organization: {
-        name: "Broward",
-        portal_name: "Broward's PBL Portal @ SciStarter",
-        welcome_image: "img/PBL_image_aC85UGb.jpg"
-      }, // replace with real data
-      user: {
-        "id":69,
-        "name":"kevinripka",
-        "school":""
-      }, // replace with real data
+    name: 'App',
+    components: {
+        TeacherAssignTabs
+    },
+    computed: {
+        user() {
+            return JSON.parse(document.getElementById('data-user').textContent);
+        },
+
+        organization() {
+            return JSON.parse(document.getElementById('data-organization').textContent);
+        },
+    },
+    data: function(){
+        return {
+        }
     }
-  }
 }
 </script>
 

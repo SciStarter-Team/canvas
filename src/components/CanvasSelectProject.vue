@@ -30,10 +30,9 @@ export default {
         ViewProject,
         AssignProject
     },
-    props: ['user','organization'],
+    props: ['user','organization', 'newlyCreated'],
     data: function(){
         return {
-            custom: [], // fill with custom projects
             projectView: null,
             projectToAssign: null
         }
@@ -41,6 +40,11 @@ export default {
     computed: {
         curated() {
             return JSON.parse(document.getElementById('data-projects').textContent);
+        },
+        custom() {
+            var all = JSON.parse(document.getElementById('data-custom-projects').textContent);
+            all.concat(this.newlyCreated);
+            return all;
         }
     },
     methods: {
@@ -62,7 +66,7 @@ export default {
             // do all the logic to assign the project
             this.projectAssigned = true
         },
-        assignProject:function(e){
+        assignProject: function(e){
             this.projectToAssign = e
             this.projectAssigned = true
         },
