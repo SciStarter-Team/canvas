@@ -179,9 +179,6 @@
 </template>
 
 <script>
-//*******REMOVE FOR PROD *********
-import store from '../store.js'
-//********************************
 import VueMarkdown from 'vue-markdown'
 import CustomForm from '../components/CanvasCustomForm'
 export default {
@@ -194,7 +191,6 @@ export default {
     data: function(){
         return {
             questions: null,
-            worksheet: store.worksheet
         }
     },
     methods: {
@@ -224,6 +220,14 @@ export default {
         }
     },
     computed: {
+        worksheet() {
+            if (this.project.project.type == 'CustomProject') {
+                return this.project.project.json;
+            } else {
+                return this.project.worksheet ? this.project.worksheet.fields : null;
+            }
+        },
+
         satisfies() {
             // Simulate a student view
             if(this.project.direct_input_only) {

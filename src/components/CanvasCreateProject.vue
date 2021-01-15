@@ -82,7 +82,7 @@ export default {
     },
     computed: {
         user_projects() {
-            return JSON.parse(document.getElementById('data-custom-projects').textContent).filter(p => p.teacher.id === this.user.id) + this.new_projects;
+            return JSON.parse(document.getElementById('data-custom-projects').textContent).filter(p => p.project.teacher.id === this.user.id).concat(this.new_projects);
         }
     },
     methods: {

@@ -19,7 +19,6 @@
       <span class="color-o w-400">* required</span>
     </div>
 
-    <div v-if="!item.project.form" class="message message-border p-base m-0-0-base"><b class="w-700">Warning:</b> This project requires making an account on a non-SciStarter website to participate. If your students are under the age of thirteen, you should sumbit data on their bahalf, for privacy reasons.</div>
     <div v-if="showError" class="c-error">You must select who will enter data into the project</div>
     <template v-if="!item.direct_input_only">
       <h3 class="color-g w-700 fs-base m-0-0-s4">Data Entry Options (select one) <span class="required">*</span></h3>

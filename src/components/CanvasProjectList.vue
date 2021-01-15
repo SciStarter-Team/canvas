@@ -46,6 +46,16 @@
         <p v-else>Created by {{item.project.teacher.name}}</p>
         <div class="flex flex-jc-sb flex-ai-b m-0-0-1">
           <a @click="viewProject(item)" class="w-400">View project</a>
+          <el-popover
+            v-if="user.id == item.project.teacher.id"
+            placement="top"
+            title="Share URL"
+            width="300"
+            trigger="click">
+            <p>To invite <strong>non-students</strong> to participate in your project, share this link:</p>
+            <input type="text" :value="item.external_url">
+            <a slot="reference">Share project</a>
+          </el-popover>
         </div>
 
       </div>
