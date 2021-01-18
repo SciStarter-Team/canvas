@@ -26,7 +26,7 @@
       "introduction to citizen science" tutorial and review the
       FAQs!
     </p>
-    <iframe width="780" height="700" src="https://orrery-media.s3-us-west-2.amazonaws.com/Tutorials/Intro+to+Citizen+Science+General-Bilingual+12142020/story.html"></iframe>
+    <iframe width="740" height="660" src="https://orrery-media.s3-us-west-2.amazonaws.com/Tutorials/Intro+to+Citizen+Science+General-Bilingual+12142020/story.html"></iframe>
   </div>
 
   <div class="width-33 p-l-base">

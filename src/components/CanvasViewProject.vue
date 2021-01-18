@@ -69,7 +69,7 @@
               </tr>
               <tr v-if="project.project.classroom_materials">
                 <th scope="row">Classroom materials</th>
-                <td>{{ project.project.classroom_materials }}</td>
+                <td><a :href="project.project.classroom_materials">{{ project.project.classroom_materials }}</a></td>
               </tr>
             </table>
           </div>
@@ -116,7 +116,20 @@
           <!-- IF AFFILIATE WHERE STUDENT HAS TO ENTER DATA -->
           <div v-if="!project.project.form && project.project.type == 'Project'" class="frame p-base message">
             <h3 class="color-p fs-base serif w-700 m-0-0-s4">Note for Educators</h3>
-            <p>This project is not hosted on SciStarter.org. Students will need to create a project account during the assignment to log data and to receive credit for their participation. Or, for students 13 and under, you can create a project account and log data as a class to complete the assignment. Select "Students will submit data to teacher, Teacher will submit data to the project (suggested for younger students)" when assigning project to log data on behalf of your class.</p>
+            <p>
+              This project’s data entry form is not hosted on
+              SciStarter. If you assign this project and select the
+              option for students to log data on their own, they will
+              be asked to create a SciStarter account and a project
+              account (both are free and both can use the student’s
+              school email address). For students ages 12 and under,
+              we recommend the assignment option labeled "Students
+              will submit data to teacher, Teacher will submit data
+              to the project (suggested for younger students)." This
+              way, students can <em>practice</em> logging data using
+              the worksheets we provide and you have the option to log
+              their worksheet data onto the project’s website.
+            </p>
           </div>
 
         </div><!-- end .flex-col -->
@@ -125,12 +138,23 @@
       </div><!-- end .flex -->
 
       <div class="frame p-base m-0-basehalf">
-        <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Instructions</h3>
-        <ol class="instructions">
-          <template v-for="(step, idx) in project.steps">
-            <li v-if="check_condition(step.condition)" v-html="step.text" :key="idx"></li>
-          </template>
-        </ol>
+        <h3 class="color-p fs-base serif w-700 m-0-0-s4">Student Instructions</h3>
+        <el-tabs type="card">
+          <el-tab-pane label="Using Worksheet">
+            <ol class="instructions">
+              <template v-for="(step, idx) in project.steps">
+                <li v-if="check_condition(step.condition, satisfies_student_worksheet)" v-html="step.text" :key="idx"></li>
+              </template>
+            </ol>
+          </el-tab-pane>
+          <el-tab-pane label="Using Direct Input">
+            <ol class="instructions">
+              <template v-for="(step, idx) in project.steps">
+                <li v-if="check_condition(step.condition, satisfies_student_direct)" v-html="step.text" :key="idx"></li>
+              </template>
+            </ol>
+          </el-tab-pane>
+        </el-tabs>
       </div>
 
       <template v-if="project.project.type == 'CustomProject' && project.project.notes">
@@ -150,7 +174,7 @@
       <template v-if="project.project.type == 'Project'">
         <div class="frame p-base m-base-basehalf">
           <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Worksheet</h3>
-          <p class=" m-0-0-lg">This is the form students will fill out and submit to you</p>
+          <p class=" m-0-0-lg">This is the form students will fill out and submit to you, if you choose to have them participate via worksheet.</p>
 
           <div v-for="(item,i) in worksheet" class="customFormQuestion" :key="'q'+i">
             <h4 class="label" :class="{'heading':item.type=='heading'}">{{item.prompt}}</h4>
@@ -194,8 +218,8 @@ export default {
         }
     },
     methods: {
-        check_condition(condition) {
-            return ((condition & this.satisfies) == condition);
+        check_condition(condition, satisfaction) {
+            return ((condition & satisfaction) == condition);
         },
 
         backToList() {
@@ -228,14 +252,12 @@ export default {
             }
         },
 
-        satisfies() {
-            // Simulate a student view
-            if(this.project.direct_input_only) {
-                return 0x11
-            }
-            else {
-                return 0x09;
-            }
+        satisfies_student_direct() {
+            return 0x11;
+        },
+
+        satisfies_student_worksheet() {
+            return 0x09;
         },
 
         intro_videos() {
