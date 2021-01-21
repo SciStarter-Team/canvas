@@ -25,11 +25,11 @@
       <div ref="radios">
         <div class="radio flex m-0-0-s4">
           <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
-          <label class="fs-base" for="teacher">Students will submit data to their teacher; The teacher will submit data to the project (suggested for younger students).</label>
+          <label class="fs-base" for="teacher">Students will <strong>submit worksheet</strong> to their teacher; The teacher will submit data to the project (suggested for younger students).</label>
         </div>
         <div class="radio flex m-0-0-s4">
           <input type="radio" v-model="whoSubmits" value="student" id="student" />
-          <label class="fs-base" for="student">Students will submit data directly to the project (suggested for older students)</label>
+          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project (suggested for older students)</label>
         </div>
       </div>
     </template>

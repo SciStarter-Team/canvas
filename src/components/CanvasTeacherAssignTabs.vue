@@ -38,7 +38,7 @@
 
       <div id="panel-1" class="canvas-panel" v-if="tabIndex === 1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" >
         <keep-alive>
-        <SelectProject :user="user" :organization="organization" :newly-created="created" />
+        <SelectProject :user="user" :organization="organization" :newlyCreated="created" />
       </keep-alive>
       </div>
 

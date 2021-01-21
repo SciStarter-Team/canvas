@@ -188,7 +188,7 @@
       <h2 class="color-b fs-b2 serif m-0-0-base">Add Questions for your Students</h2>
 
 
-      <div class="builder-module" v-for="(builderModule, index) in project.fields" :ref="'builder-module-' + index" :key="'builder-module-' + index">
+      <div class="builder-module" v-for="(builderModule, index) in fields" :ref="'builder-module-' + index" :key="'builder-module-' + index">
 
         <div v-for="(field,i) in builderModule.inputFields" :key="'field'+i" class="ccp-form-unit">
 
@@ -214,12 +214,12 @@
               <!-- FILE UPLOAD -->
               <template v-if="field.type === 'file'">
                 <!--IMAGE-->
-                <img style="max-width: 300px; max-height: 200px" v-if="!!project.fields[index].url && project.fields[index].name == 'addPhoto'" :src="project.fields[index].url">
+                <img style="max-width: 300px; max-height: 200px" v-if="!!fields[index].url && fields[index].name == 'addPhoto'" :src="fields[index].url">
                 <!--VIDEO-->
-                <video style="max-width: 300px; max-height: 200px" v-if="!!project.fields[index].url && project.fields[index].name == 'addVideo'" :src="project.fields[index].url"></video>
+                <video style="max-width: 300px; max-height: 200px" v-if="!!fields[index].url && fields[index].name == 'addVideo'" :src="fields[index].url"></video>
                 <!--FILE-->
 
-                <p v-if="!!project.fields[index].url && project.fields[index].name == 'addFile'">File = <a :href="project.fields[index].url">{{project.fields[index].url}}</a></p>
+                <p v-if="!!fields[index].url && fields[index].name == 'addFile'">File = <a :href="fields[index].url">{{fields[index].url}}</a></p>
                 <ss-fileupload @url="saved_media(index, $event)" :ref="'builder-module-' + index + 'input'"></ss-fileupload>
               </template>
 
@@ -264,7 +264,7 @@
         </div>
         <div>
           <a class="m-0-base" @click="decrementFormPart">&laquo; back a step</a>
-          <a @click="finish" class="cbtn-primary">finish<span>&raquo;</span></a>
+          <a @click="finish" class="cbtn-primary"><i ref="finish_spinner"></i> finish<span>&raquo;</span></a>
         </div>
       </div>
 
@@ -328,6 +328,18 @@ export default {
     computed: {
         xcsrftoken() {
             return JSON.parse(document.getElementById('data-xcsrf-token').textContent);
+        },
+
+        fields() {
+            if(this.project.json) {
+                return this.project.json;
+            }
+            else if(this.project.fields) {
+                return this.project.fields;
+            }
+            else {
+                return null;
+            }
         }
     },
     methods: {
@@ -411,8 +423,8 @@ export default {
         },
         addModule: function(type) {
             var field = this.cloneObject(this.modules[type]);
-            this.project.fields.push(field);
-            var index = this.project.fields.length - 1;
+            this.fields.push(field);
+            var index = this.fields.length - 1;
             var ctx = this;
             setTimeout(function() {
                 var targetWrap = ctx.$refs['builder-module-' + index][0]
@@ -427,12 +439,12 @@ export default {
         },
 
         duplicateModule: function(index) {
-            var duplicate = this.cloneObject(this.project.fields[index]);
-            this.project.fields.splice(index, 0, duplicate)
+            var duplicate = this.cloneObject(this.fields[index]);
+            this.fields.splice(index, 0, duplicate)
         },
 
         deleteModule: function(index) {
-            this.project.fields.splice(index, 1);
+            this.fields.splice(index, 1);
         },
 
         editModule: function(index) {
@@ -446,18 +458,24 @@ export default {
         finish() {
             var ctx = this;
 
-            fetch(this.user.save_custom, {
+            ctx.$refs.finish_spinner.classList.add("spinner-border", "spinner-border-sm");
+
+            fetch(ctx.user.save_custom, {
                 method: "POST",
                 credentials: "include",
                 headers: {"X-XCSRFToken": this.xcsrftoken},
                 body: JSON.stringify(this.project)
             }).then(resp => resp.json()).then(function(data) {
+                ctx.$refs.finish_spinner.classList.remove("spinner-border", "spinner-border-sm");
+
                 if(data.error) {
                     alert(data.error);
                 }
                 else {
-                    ctx.$emit('projectCreated',this.project.name);
-                    ctx.$emit('project-added', data);
+                    ctx.$emit('projectCreated',ctx.project.name);
+                    if(!ctx.editMode) {
+                        ctx.$emit('project-added', data);
+                    }
                 }
             });
         }
@@ -465,8 +483,8 @@ export default {
   mounted(){
     let ctx = this
     if (this.edit) {
-      this.editMode = true
-      this.project = this.edit
+        this.editMode = true;
+        this.project = this.edit;
     }
     let calc = function(){
       ctx.calculateFormWrapperHeight();
@@ -477,5 +495,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.cbtn-primary > i {
+    vertical-align: middle;
+}
 </style>

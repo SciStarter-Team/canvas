@@ -36,13 +36,14 @@
         </div>
         <div class="videoWrapper m-0-0-1h">
           <div class="project-card-image">
-            <img :src="item.project.image" v-if="item.project.image_or_video=='image'">
-            <video :src="item.project.video" v-else-if="item.project.image_or_video='video'" controls></video>
+            <img :src="item.project.image" v-if="item.project.image_or_video=='image' && item.project.image">
+            <video :src="item.project.video" v-else-if="item.project.image_or_video='video' && item.project.video" controls></video>
+            <img src="../assets/img/canvas/robot-background-4_3.jpg" v-else>
           </div>
 
         </div>
         <h3 class="serif color-p fs-b1 w-700">{{ item.project.name }}</h3>
-        <p v-if="user.id == item.project.teacher.id">Created on {{item.project.start_date | formatDate}}</p>
+        <p v-if="user.id == item.project.teacher.id">Created on {{new Date(item.project.start_date) | formatDate}}</p>
         <p v-else>Created by {{item.project.teacher.name}}</p>
         <div class="flex flex-jc-sb flex-ai-b m-0-0-1">
           <a @click="viewProject(item)" class="w-400">View project</a>

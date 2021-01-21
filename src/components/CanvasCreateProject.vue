@@ -36,7 +36,7 @@
 
             </div>
             <h3 class="serif color-p fs-b1 w-700">{{ !!item.name_override ? item.name_override : item.project.name }}</h3>
-            <p>Created on {{item.project.start_date | formatDate}}</p>
+            <p>Created on {{new Date(item.project.start_date) | formatDate}}</p>
 
 
             <div class="flex flex-ai-c m-0-0-s1">
@@ -45,11 +45,11 @@
                 <span class="slider round"></span>
               </label>
               <label v-if="item.project.shared" class="fs-s1 color-g w-700">This project is being shared</label>
-              <label v-else class="fs-s1 color-g w-700">Share this project</label>
+              <label v-else class="fs-s1 color-g w-700">Share this project with your school district</label>
             </div>
             <div class="flex flex-jc-sb flex-ai-b">
-              <a @click="editProject(item)" class="cbtn-primary">edit project <span>&raquo;</span></a>
-              <a @click="deleteProject(item,i)">delete</a>
+              <a @click="editProject(item, i)" class="cbtn-primary">edit project <span>&raquo;</span></a>
+              <a @click="deleteProject(item, i)">delete</a>
             </div>
           </div>
         </div>
@@ -76,18 +76,14 @@ export default {
         return {
             showForm: false,
             finished: null,
-            new_projects: [],
+            user_projects: JSON.parse(document.getElementById('data-custom-projects').textContent).filter(p => p.project.teacher.id === this.user.id) || [],
             projectToEdit: null
         }
     },
-    computed: {
-        user_projects() {
-            return JSON.parse(document.getElementById('data-custom-projects').textContent).filter(p => p.project.teacher.id === this.user.id).concat(this.new_projects);
-        }
-    },
+
     methods: {
         projectAdded(proj) {
-            this.new_projects.push(proj);
+            this.user_projects.push(proj);
             this.$emit('project-added', proj)
         },
         setShowForm(){

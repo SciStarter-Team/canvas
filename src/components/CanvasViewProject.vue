@@ -32,8 +32,9 @@
         <template v-if="project.project.type == 'CustomProject'">
           <div class="project-video">
             <div class="videoWrapper">
-              <img :src="project.project.image" v-if="project.project.image_or_video=='image'">
-              <video :src="project.project.video" v-else-if="project.project.image_or_video='video'" controls></video>
+              <img :src="project.project.image" v-if="project.project.image_or_video=='image' && project.project.image">
+              <video :src="project.project.video" v-else-if="project.project.image_or_video='video' && project.project.video" controls></video>
+              <img src="../assets/img/canvas/robot-background-4_3.jpg" v-else>
             </div>
           </div>
         </template>
@@ -119,12 +120,13 @@
             <p>
               This project’s data entry form is not hosted on
               SciStarter. If you assign this project and select the
-              option for students to log data on their own, they will
-              be asked to create a SciStarter account and a project
-              account (both are free and both can use the student’s
-              school email address). For students ages 12 and under,
-              we recommend the assignment option labeled "Students
-              will submit data to teacher, Teacher will submit data
+              option for students to <strong>log data</strong> on
+              their own, they will be asked to create a SciStarter
+              account and a project account (both are free and both
+              can use the student’s school email address). For
+              students ages 12 and under, we recommend the assignment
+              option labeled "Students will <strong>submit
+              worksheet</strong> to teacher, Teacher will submit data
               to the project (suggested for younger students)." This
               way, students can <em>practice</em> logging data using
               the worksheets we provide and you have the option to log
@@ -140,14 +142,14 @@
       <div class="frame p-base m-0-basehalf">
         <h3 class="color-p fs-base serif w-700 m-0-0-s4">Student Instructions</h3>
         <el-tabs type="card">
-          <el-tab-pane label="Using Worksheet">
+          <el-tab-pane label="Students Submit Worksheet">
             <ol class="instructions">
               <template v-for="(step, idx) in project.steps">
                 <li v-if="check_condition(step.condition, satisfies_student_worksheet)" v-html="step.text" :key="idx"></li>
               </template>
             </ol>
           </el-tab-pane>
-          <el-tab-pane label="Using Direct Input">
+          <el-tab-pane label="Students Log Data">
             <ol class="instructions">
               <template v-for="(step, idx) in project.steps">
                 <li v-if="check_condition(step.condition, satisfies_student_direct)" v-html="step.text" :key="idx"></li>
@@ -171,7 +173,7 @@
         </div>
       </template>
 
-      <template v-if="project.project.type == 'Project'">
+      <template v-if="project.project.type == 'Project' && !project.direct_input_only">
         <div class="frame p-base m-base-basehalf">
           <h3 class="color-p fs-base serif w-700 m-0-0-s4">Project Worksheet</h3>
           <p class=" m-0-0-lg">This is the form students will fill out and submit to you, if you choose to have them participate via worksheet.</p>
