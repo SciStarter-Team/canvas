@@ -25,11 +25,15 @@
       <div ref="radios">
         <div class="radio flex m-0-0-s4">
           <input type="radio" v-model="whoSubmits" value="teacher" id="teacher" />
-          <label class="fs-base" for="teacher">Students will <strong>submit worksheet</strong> to their teacher; The teacher will submit data to the project (suggested for younger students).</label>
+          <label class="fs-base" for="teacher">Students will <strong>submit worksheets</strong> to their teacher; The teacher will log data to the project.</label>
         </div>
         <div class="radio flex m-0-0-s4">
+          <input type="radio" v-model="whoSubmits" value="delegated" id="delegated" />
+          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project, using a project account created by the teacher.</label>
+        </div>
+        <div v-if="organization.students_own_accounts" class="radio flex m-0-0-s4">
           <input type="radio" v-model="whoSubmits" value="student" id="student" />
-          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project (suggested for older students)</label>
+          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project usning their own accounts (suggested for high school or older students)</label>
         </div>
       </div>
     </template>
@@ -39,10 +43,15 @@
       <label>How many times must the student do the project to complete the assignment?</label>
       <input type="number" min="1" v-model="contributions" />
     </div>
+    <div v-else-if="whoSubmits=='delegated'" class="m-b4-0">
+      <h3 class="color-g w-700 fs-base m-0-0-s4">Number of Contributions <span class="required">*</span></h3>
+      <label>How many times must the students collectively do the project to complete the assignment?</label>
+      <input type="number" min="1" v-model="contributions" />
+    </div>
 
     <div class="flex flex-jc-sb flex-ai-c m-lg-0-0">
       <a @click="cancel" class="cbtn-txt-secondary">cancel selection</a>
-      <a @click="assign(item)" class="cbtn-primary"><i ref="assign_spinner"></i>To assign this project, click <em>Select</em> on the next screen <span>&raquo;</span></a>
+      <a @click="assign(item)" class="cbtn-primary"><i ref="assign_spinner"></i>To assign this project, click here and then click <em>Select</em> on the next screen <span>&raquo;</span></a>
     </div>
 
     <form ref="return_form" method="post" :action="return_url">
@@ -55,10 +64,10 @@
 <script>
 export default {
     name: 'AssignProject',
-    props: ['item'],
+    props: ['item', 'organization'],
     data: function(){
         return {
-            whoSubmits: this.item.direct_input_only ? 'student' : null,
+            whoSubmits: null,
             contributions: 1,
             confirmed: false,
             showError: false
@@ -98,8 +107,9 @@ export default {
         assignProject() {
             this.$refs.assign_spinner.classList.add("spinner-border", "spinner-border-sm");
 
+            let mode_map = {"student": "direct", "teacher": "worksheet", "delegated": "delegated"};
             let body = new FormData();
-            body.append('direct', ((this.whoSubmits == 'student' || this.item.direct_input_only) ? 'true' : 'false'));
+            body.append('input_mode', mode_map[this.whoSubmits]);
             body.append('required', '' + this.contributions);
 
             fetch(this.item.project.type === 'CustomProject' ? this.assign_custom_url : this.assign_url, {

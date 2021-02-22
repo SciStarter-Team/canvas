@@ -15,7 +15,12 @@
     </div>
 
     <div class="p-base">
-      <h2 class="color-b fs-b2 serif m-0-0-base">Create a <span v-if="finished">Another</span> Project</h2>
+      <h2 class="color-b fs-b2 serif m-0-0-base">Create <span v-if="finished">Another</span> Project</h2>
+      <p v-if="finished">
+        To view and select your project, please click the "Browse and
+        Select Project" tab. If your project is not showing up there,
+        please refresh the page.
+      </p>
       <p class="width-66">After your class has completed a citizen science project together, create your own project and share it with others!</p>
       <a @click="setShowForm" class="cbtn-primary">Create a Project <span>&raquo;</span></a>
     </div>

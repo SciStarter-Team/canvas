@@ -26,7 +26,8 @@
       "introduction to citizen science" tutorial and review the
       FAQs!
     </p>
-    <iframe width="740" height="660" src="https://media.scistarter.org/curated/Broward+Tutorial_January+2021/Broward+Citizen+Science+Tutorial_January_21_2021+-+Storyline+output/story.html"></iframe>
+    <iframe ref="tutframe" width="740" height="660" @load="$refs.tutframe.style.transform = 'scale(0.99, 1)'" src="https://media.scistarter.org/curated/Broward+Tutorial_January+2021/Broward+Citizen+Science+Tutorial_January_21_2021+-+Storyline+output/story.html"></iframe>
+    <p>Or, <a href="https://media.scistarter.org/curated/Broward+Tutorial_January+2021/Broward+Citizen+Science+Tutorial_January_21_2021+-+Storyline+output/story.html" target="_blank">Open the tutorial in a new tab</a></p>
   </div>
 
   <div class="width-33 p-l-base">

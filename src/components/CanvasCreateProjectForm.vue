@@ -252,8 +252,8 @@
           <el-dropdown-item><a @click="addModule('dateField')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Answer with a date</a></el-dropdown-item>
           <el-dropdown-item><a @click="addModule('paragraphField')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Answer with longer text</a></el-dropdown-item>
           <el-dropdown-item><a @click="addModule('number')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Answer with a number</a></el-dropdown-item>
-          <el-dropdown-item><a @click="addModule('selectOne')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Multiple choice (choose only one)</a></el-dropdown-item>
-          <el-dropdown-item><a @click="addModule('selectMany')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Multiple choice (choose more than one)</a></el-dropdown-item>
+          <el-dropdown-item><a @click="addModule('Select One')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Multiple choice (choose only one)</a></el-dropdown-item>
+          <el-dropdown-item><a @click="addModule('Select Many')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Multiple choice (choose more than one)</a></el-dropdown-item>
           <el-dropdown-item><a @click="addModule('uploadPhoto')" class="primary-bg-light-hover primary-color-hover"><i class="el-icon-plus"></i> Upload a photo</a></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
