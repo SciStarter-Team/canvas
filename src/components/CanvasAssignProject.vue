@@ -33,7 +33,7 @@
         </div>
         <div v-if="organization.students_own_accounts" class="radio flex m-0-0-s4">
           <input type="radio" v-model="whoSubmits" value="student" id="student" />
-          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project usning their own accounts (suggested for high school or older students)</label>
+          <label class="fs-base" for="student">Students will <strong>log data</strong> directly to the project using their own accounts (suggested for high school or older students)</label>
         </div>
       </div>
     </template>
@@ -43,11 +43,39 @@
       <label>How many times must the student do the project to complete the assignment?</label>
       <input type="number" min="1" v-model="contributions" />
     </div>
-    <div v-else-if="whoSubmits=='delegated'" class="m-b4-0">
-      <h3 class="color-g w-700 fs-base m-0-0-s4">Number of Contributions <span class="required">*</span></h3>
-      <label>How many times must the students collectively do the project to complete the assignment?</label>
-      <input type="number" min="1" v-model="contributions" />
-    </div>
+    <template v-else-if="whoSubmits=='delegated'">
+      <div class="m-b4-0">
+        <h3 class="color-g w-700 fs-base m-0-0-s4">Project account <span class="required">*</span></h3>
+        <p>
+          Use your school email address
+          (<strong>{{user.email}}</strong>) when you create the
+          account with the project.
+        </p>
+        <p>
+          The login name and password will be shared with your
+          students, allowing them to log data, so <strong>do not use
+          your school password</strong>. Instead, choose a new one.
+        </p>
+        <p>
+          We recommend <a :href="item.project.url" target="_blank">
+          creating the project account</a> first, and then filling in
+          the login name and password you chose for the project here.
+          If you do it in the other order, don't forget to copy the
+          password you enter here, so you can be sure to enter it
+          exactly the same way when you create the project account.
+        </p>
+        <label>Login name you and your students will use for the project</label><br>
+        <input type="text" v-model="project_username"><br>
+        <label>Password you and your students will use for the project</label><br>
+        <input type="text" v-model="project_password" placeholder="NOT your school password"><br>
+        <a style="size: 10pt" @click="project_password=Math.random().toString(36).slice(-10)">recommend a password</a>
+      </div>
+      <div class="m-b4-0">
+        <h3 class="color-g w-700 fs-base m-0-0-s4">Number of Contributions <span class="required">*</span></h3>
+        <label>How many times must the students collectively do the project to complete the assignment?</label>
+        <input type="number" min="1" v-model="contributions" />
+      </div>
+    </template>
 
     <div class="flex flex-jc-sb flex-ai-c m-lg-0-0">
       <a @click="cancel" class="cbtn-txt-secondary">cancel selection</a>
@@ -64,13 +92,15 @@
 <script>
 export default {
     name: 'AssignProject',
-    props: ['item', 'organization'],
+    props: ['item', 'organization', 'user'],
     data: function(){
         return {
             whoSubmits: null,
             contributions: 1,
             confirmed: false,
-            showError: false
+            showError: false,
+            project_username: this.user.email,
+            project_password: ''
         }
     },
     computed: {
@@ -111,6 +141,8 @@ export default {
             let body = new FormData();
             body.append('input_mode', mode_map[this.whoSubmits]);
             body.append('required', '' + this.contributions);
+            body.append('project_username', this.project_username);
+            body.append('project_password', this.project_password);
 
             fetch(this.item.project.type === 'CustomProject' ? this.assign_custom_url : this.assign_url, {
                 method: "POST",
@@ -139,5 +171,8 @@ export default {
 <style lang="scss">
 .cbtn-primary > i {
     vertical-align: middle;
+}
+strong {
+    font-size: large;
 }
 </style>
