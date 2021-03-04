@@ -33,8 +33,8 @@
   <div class="width-33 p-l-base">
     <h2 class="color-b fs-b2 serif m-0-0-base">Documents</h2>
     <ul class="standard">
-      <li v-for="(item,i) in documents" :key="'doc' + i">
-        <a :href="item.url">{{item.name}}</a>
+      <li v-for="(item,i) in organization.teacher_documents" :key="'doc' + i">
+        <a :href="item[1]">{{item[0]}}</a>
       </li>
     </ul>
   </div>
@@ -43,13 +43,12 @@
 </template>
 
 <script>
-import store from '../store.js'
 export default {
     name: 'Documents',
     props: ['organization'],
     data: function(){
         return {
-            documents: store.documents
+
         }
     }
 }

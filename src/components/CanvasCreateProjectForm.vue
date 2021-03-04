@@ -27,6 +27,7 @@
           </div>
           <div class="ccp-form-unit">
             <h3 class="label">Use an image or video to represent project?</h3>
+            <span>Images or videos with either a 4:3 or 16:9 aspect ratio are best</span>
             <el-radio-group v-model="project.image_or_video" @change="calculateFormWrapperHeight">
               <el-radio :label="'image'">Image</el-radio>
               <el-radio :label="'video'">Video</el-radio>
@@ -204,11 +205,11 @@
               <textarea  v-model="builderModule[field.model]" v-if="field.type === 'textarea'" :placeholder="field.placeholder" :ref="'builder-module-' + index + 'input' " class="full-width"></textarea>
 
               <!-- NUMBER -->
-              <input type="number" :placeholder="field.placeholder" v-model="field.value" v-if="field.type === 'number'" @input="field.value = updateOptions(field.value, builderModule)" :ref="'builder-module-' + index + 'input' " class="full-width">
+              <input type="number" :placeholder="field.placeholder" :value="field.value" @input="field.value = updateOptions($event.target.value, builderModule, i)" v-if="field.type === 'number'" :ref="'builder-module-' + index + 'input' " class="full-width">
 
               <!-- OPTIONS -->
               <template v-if="field.type === 'options'">
-                <input type="text" v-model="builderModule.options[option]"  v-for="option in field.options" :key="option" class="option" :ref="'builder-module-' + index + 'input' ">
+                <input type="text" v-model="builderModule.options[option]"  v-for="option in field.options.length" :key="option" class="option" :ref="'builder-module-' + index + 'input' + option">
               </template>
 
               <!-- FILE UPLOAD -->
@@ -343,6 +344,18 @@ export default {
         }
     },
     methods: {
+        updateOptions(value, module, i) {
+            var opts = module.inputFields[i + 1].options;
+            if(opts.length > value) {
+                opts.length = value;
+            }
+            else if (opts.length < value) {
+                for(var j = value - opts.length; j > 0; j--) {
+                    opts.push('');
+                }
+            }
+            return value;
+        },
         scrollToTop(){
             window.scrollTo(0,0)
         },
